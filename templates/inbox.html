@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Inbox</title>
+    <script>
+      function showHash() {
+        var hashDiv = document.getElementById('hashDiv');
+        if (hashDiv.style.display === 'none') {
+          hashDiv.style.display = 'block';
+        } else {
+          hashDiv.style.display = 'none';
+        }
+      }
+    </script>
+</head>
+<body>
+    <h2>Your Inbox</h2>
+    {% if messages %}
+        <ul>
+        {% for msg in messages %}
+            <li>
+                <strong>From:</strong> {{ msg.from }}<br>
+                <strong>Decrypted Message:</strong> {{ msg.decrypted }}<br>
+                <strong>Encrypted Message:</strong> {{ msg.encrypted }}<br>
+                <strong>Time:</strong> {{ msg.timestamp.strftime('%b %d, %Y %I:%M %p') }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No messages.</p>
+    {% endif %}
+    <div class="bottom-links">
+        <a href="{{ url_for('message') }}">Send Message</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+        <button onclick="showHash()">Show Hashed Password</button>
+        <div id="hashDiv" style="display:none; margin-top:10px; word-break:break-all;">
+            <strong>Your Password Hash:</strong><br>
+            {{ user_hash }}
+        </div>
+    </div>
+</body>
+</html>

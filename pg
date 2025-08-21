@@ -1,0 +1,40 @@
+import random
+import string
+
+def generate_password(length=16, keywords=None, use_upper=True, use_digits=True, use_symbols=True):
+    if keywords is None:
+        keywords = []
+
+    # Join all keywords together
+    keyword_str = ''.join(keywords)
+    
+    if len(keyword_str) > length:
+        raise ValueError("Keywords are longer than the desired password length.")
+
+    # Define character pool
+    characters = list(string.ascii_lowercase)
+    if use_upper:
+        characters += list(string.ascii_uppercase)
+    if use_digits:
+        characters += list(string.digits)
+    if use_symbols:
+        characters += list("!@#$%^&*()-_=+[]{};:,.<>?/")
+
+    # Calculate how many random characters to generate
+    num_random_chars = length - len(keyword_str)
+
+    # Generate random characters
+    random_chars = [random.choice(characters) for _ in range(num_random_chars)]
+
+    # Combine and shuffle
+    combined = list(keyword_str + ''.join(random_chars))
+    random.shuffle(combined)
+
+    # Return the final password
+    return ''.join(combined)
+
+# Example usage
+if __name__ == "__main__":
+    my_keywords = ["monkey"]  # Example keywords
+    password = generate_password(length=18, keywords=my_keywords)
+    print("Generated password:", password)

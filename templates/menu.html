@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Menu</title>
+</head>
+<body>
+    <h2>Welcome, {{ session['username'] }}!</h2>
+    <div class="bottom-links">
+        <a href="{{ url_for('message') }}">Send Message</a> |
+        <a href="{{ url_for('inbox') }}">Inbox</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>

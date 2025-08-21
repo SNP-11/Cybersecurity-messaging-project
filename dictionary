@@ -1,0 +1,20 @@
+def dictionary_attack(target_password, dictionary_file):
+    attempts = 0
+
+    try:
+        with open(dictionary_file, 'r') as file:
+            for line in file:
+                guess = line.strip()
+                attempts += 1
+                if guess == target_password:
+                    print("Password is found after this many attempts: ", attempts)
+                    return guess
+    except FileNotFoundError:
+        print("Dictionary File Not Found!")
+        return None
+    
+if __name__ == "__main__":
+    target = "password123"
+
+    dFile = "common.txt"
+dictionary_attack(target, dFile)

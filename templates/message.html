@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Send Encrypted Message</title>
+</head>
+<body>
+    <h2>Send Encrypted Message</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+        <label>Recipient Username:</label>
+        <input type="text" name="recipient" required><br>
+        <label>Message:</label>
+        <input type="text" name="message" required><br>
+        <label>Caesar Shift:</label>
+        <input type="number" name="shift" value="3" required><br>
+        <button type="submit">Send</button>
+    </form>
+    <div class="bottom-links">
+        <a href="{{ url_for('inbox') }}">Inbox</a> |
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>
